@@ -1,14 +1,10 @@
 # gochat-docker
 FROM fedora
 
-ARG CHAT_SERVER_DOMAN
-ARG CHAT_SERVER
 ENV GOPATH=/opt/gopath/
 ENV GOBIN=$GOPATH/bin
-ENV GOROOT=/opt/go 
 ENV PATH=$PATH:/opt/go/bin:$GOBIN
-ENV CHAT_SERVER_DOMAIN ${CHAT_SERVER_DOMAIN:-local}
-ENV CHAT_SERVER ${CHAT_SERVER}
+HOME /opt/go
 
 RUN yum clean all && \
     yum install -y tar \
@@ -17,7 +13,7 @@ RUN yum clean all && \
     yum clean all && rm -rf /var/cache/yum/*
 
 RUN useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin -c "Default Application User" default && \
-    mkdir -p /opt/app-root/destination/{src,artifacts} && \ 
+    mkdir -p /opt/gopath/ && \ 
     chown -R 1001:0 $HOME && \
     chmod -R og+rwx ${HOME}
 
