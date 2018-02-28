@@ -4,7 +4,7 @@ FROM fedora
 ENV GOPATH=/opt/gopath/ \
 ENV GOBIN=$GOPATH/bin
 ENV PATH=$PATH:/opt/go/bin:$GOBIN
-ENV HOME /opt/go
+ENV HOME=/opt/go
 
 RUN yum clean all && \
     yum install -y tar \
