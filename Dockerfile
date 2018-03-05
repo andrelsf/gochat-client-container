@@ -25,8 +25,7 @@ RUN chown -R 1001:1001 $GOPATH
 WORKDIR ${HOME}
 USER 1001
 EXPOSE 8080
-#ENTRYPOINT ["openshift-gochat-client", "-host=0.0.0.0:8080", "-chatServer", "$CHAT_SERVER",  "-templatePath=/opt/gopath/src/github.com/kevensen/openshift-gochat-client/templates/", "-logtostderr", "-chatServerDomain", "$CHAT_SERVER_DOMAIN"]
 
-ENTRYPOINT ["/bin/bash", "-c", "openshift-gochat-client -host=0.0.0.0:8080 -chatServer $CHAT_SERVER -templatePath=/opt/gopath/src/github.com/kevensen/openshift-gochat-client/templates/ -logtostderr -chatServerDomain $CHAT_SERVER_DOMAIN"]
+ENTRYPOINT ["/bin/bash", "-c", "openshift-gochat-client -host=0.0.0.0:8080 -chatServer $CHAT_SERVER -templatePath=/opt/gopath/src/github.com/kevensen/openshift-gochat-client/templates/ -logtostderr"]
 
 
