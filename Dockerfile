@@ -17,7 +17,7 @@ RUN useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin -c "Default Application 
     chown -R 1001:0 $HOME && \
     chmod -R og+rwx ${HOME}
 
-RUN go get github.com/kevensen/openshift-gochat-client
+RUN go get -u github.com/kevensen/openshift-gochat-client
 
 RUN chown -R 1001:1001 $GOPATH
 
