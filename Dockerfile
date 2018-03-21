@@ -9,6 +9,7 @@ ENV HOME=/opt/
 RUN yum clean all && \
     yum install -y tar \
                    git-remote-bzr \
+                   glide \
                    golang && \
     yum clean all && rm -rf /var/cache/yum/*
 
@@ -17,15 +18,18 @@ RUN useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin -c "Default Application 
     chown -R 1001:0 $HOME && \
     chmod -R og+rwx ${HOME}
 
-RUN go get -u github.com/kevensen/openshift-gochat-client
+RUN go get -d github.com/kevensen/openshift-gochat-client && \
+    pushd $GOPATH/src/github.com/kevensen/openshift-gochat-client && \
+    glide install -v && \
+    popd && \
+    go install github.com/kevensen/openshift-gochat-client
 
 RUN chown -R 1001:1001 $GOPATH
-
 
 WORKDIR ${HOME}
 USER 1001
 EXPOSE 8080
 
-ENTRYPOINT ["/bin/bash", "-c", "openshift-gochat-client -host=0.0.0.0:8080 -chatServer $CHAT_SERVER -templatePath=/opt/gopath/src/github.com/kevensen/openshift-gochat-client/templates/ -logtostderr"]
+ENTRYPOINT ["/bin/bash", "-c", "openshift-gochat-client -host=0.0.0.0:8080 -chatServer $CHAT_SERVER -templatePath=/opt/gopath/src/github.com/kevensen/openshift-gochat-client/templates/ -logtostderr -insecure"]
 
 
