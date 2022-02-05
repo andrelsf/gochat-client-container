@@ -1,5 +1,5 @@
 # gochat-docker
-FROM fedora
+FROM fedora:rawhide
 
 ENV GOPATH=/opt/gopath/
 ENV GOBIN=$GOPATH/bin
